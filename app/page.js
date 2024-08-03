@@ -1,4 +1,4 @@
-import HomePage from "./components/pages/HomePage"
+import HomePage from "./homepage/HomePage"
 
 
 export default function Index() {

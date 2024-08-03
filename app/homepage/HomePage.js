@@ -1,9 +1,9 @@
 'use client'
 import { useState, useEffect } from "react";
 import { Box, Button, Typography } from "@mui/material";
-import AddItemModal from "./../AddItemModal"
-import InventoryList from './../InventoryList';
-import { updateInventory, addItem, removeItem, deleteItem} from './../FirebaseFunctions';
+import AddItemModal from "../components/AddItemModal"
+import InventoryList from '../components/InventoryList';
+import { updateInventory, addItem, removeItem, deleteItem} from '../components/FirebaseFunctions';
 
 const HomePage = () => {
   const [inventory, setInventory] = useState([]);
@@ -34,9 +34,10 @@ const HomePage = () => {
         alignItems={'center'}
         justifyContent={'center'}
         borderRadius={3}
+        margin={4}
         
       >
-      <Typography variant="h2" color={"black"} fontFamily={'mateSC'} >
+      <Typography variant="h2" color={"black"} fontFamily={'mateSC'}  >
         Inventory Items
       </Typography>
         </Box>       

@@ -46,7 +46,7 @@ const Header = () => {
                 justifyContent={'center'}
                 flexDirection={'row'}
                 gap={2}>
-                    <Button variant="contained" href="#contained-buttons">
+                    <Button variant="contained" href="loginpage">
                         Log In
                     </Button>
 

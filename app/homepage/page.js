@@ -11,16 +11,18 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 const HomePage = () => {
   const [inventory, setInventory] = useState([]);
   const [open, setOpen] = useState(false);
+  const [user] = useAuthState(auth);
 
   useEffect(() => {
-    updateInventory(setInventory);
-  }, []);
+    if (user) {
+      updateInventory(setInventory, user.uid);
+    }
+  }, [user]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [user] = useAuthState(auth);
-  console.log({ user });
+  if (!user) return null;
 
   return (
     <Box
@@ -31,7 +33,6 @@ const HomePage = () => {
       justifyContent="center"
       alignItems="center"
       bgcolor="#121212"
-      position="relative"
     >
       <Container maxWidth="md">
         <Box
@@ -61,37 +62,26 @@ const HomePage = () => {
           boxShadow={3}
         >
           <InventoryList
+            userId={user.uid}
             inventory={inventory}
-            addItem={(item, amount) => addItem(item, amount, () => updateInventory(setInventory))}
-            removeItem={(item, amount) => removeItem(item, amount, () => updateInventory(setInventory))}
-            deleteItem={(item) => deleteItem(item, () => updateInventory(setInventory))}
+            addItem={(item, amount) => addItem(user.uid, item, amount, () => updateInventory(setInventory, user.uid))}
+            removeItem={(item, amount) => removeItem(user.uid, item, amount, () => updateInventory(setInventory, user.uid))}
+            deleteItem={(item) => deleteItem(user.uid, item, () => updateInventory(setInventory, user.uid))}
           />
         </Box>
 
         <AddItemModal
           open={open}
           handleClose={handleClose}
-          addItem={(item, amount) => addItem(item, amount, () => updateInventory(setInventory))}
+          addItem={(item, amount) => addItem(user.uid, item, amount, () => updateInventory(setInventory, user.uid))}
         />
       </Container>
 
-      <Button
-        variant="contained"
-        sx={{
-          position: 'absolute',
-          bottom: 16,
-          right: 16,
-          backgroundColor: 'red',
-          '&:hover': {
-            backgroundColor: 'darkred',
-          },
-        }}
-        onClick={() => {
-          signOut(auth)
-        }}
-      >
-        Log Out
-      </Button>
+      <Box padding={3}>
+        <Button variant="contained" color="secondary" onClick={() => signOut(auth)}>
+          Log Out
+        </Button>
+      </Box>
     </Box>
   );
 };

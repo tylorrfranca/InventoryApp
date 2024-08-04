@@ -1,8 +1,9 @@
+// FirebaseFunctions.js
 import { collection, getDocs, query, deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import { firestore } from '@/firebase';
 
-export const updateInventory = async (setInventory) => {
-  const snapshot = query(collection(firestore, 'inventory'));
+export const updateInventory = async (setInventory, userId) => {
+  const snapshot = query(collection(firestore, `users/${userId}/inventory`));
   const docs = await getDocs(snapshot);
   const inventoryList = [];
   docs.forEach((doc) => {
@@ -14,9 +15,8 @@ export const updateInventory = async (setInventory) => {
   setInventory(inventoryList);
 };
 
-
-export const addItem = async (item, amount, updateInventory) => {
-  const docRef = doc(collection(firestore, 'inventory'), item);
+export const addItem = async (userId, item, amount, updateInventory) => {
+  const docRef = doc(collection(firestore, `users/${userId}/inventory`), item);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
@@ -25,30 +25,26 @@ export const addItem = async (item, amount, updateInventory) => {
   } else {
     await setDoc(docRef, { quantity: amount });
   }
-  await updateInventory();
+  await updateInventory(userId);
 };
 
-export const removeItem = async (item, amount, updateInventory) => {
-  const docRef = doc(collection(firestore, 'inventory'), item);
+export const removeItem = async (userId, item, amount, updateInventory) => {
+  const docRef = doc(collection(firestore, `users/${userId}/inventory`), item);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
     const { quantity } = docSnap.data();
-    if (quantity === 1) {
+    if (quantity === amount) {
       await deleteDoc(docRef);
     } else {
       await setDoc(docRef, { quantity: quantity - amount });
     }
   }
-  await updateInventory();
+  await updateInventory(userId);
 };
 
-export const deleteItem = async (item, updateInventory) => {
-  const docRef = doc(collection(firestore, 'inventory'), item);
-  const docSnap = await getDoc(docRef);
-
-  if (docSnap.exists()) {
-      await deleteDoc(docRef);
-    } 
-  await updateInventory();
+export const deleteItem = async (userId, item, updateInventory) => {
+  const docRef = doc(collection(firestore, `users/${userId}/inventory`), item);
+  await deleteDoc(docRef);
+  await updateInventory(userId);
 };

@@ -4,8 +4,19 @@ import { useState } from "react";
 const AddItemModal = ({ open, handleClose, addItem }) => {
   const [itemName, setItemName] = useState('');
   const [itemAmount, setItemAmount] = useState('');
-  const amount = parseInt(itemAmount, 10);
 
+  const handleAddItem = () => {
+    const amount = parseInt(itemAmount, 10);
+
+    if (itemName.trim() && (!itemAmount || !isNaN(amount))) {
+      addItem(itemName, isNaN(amount) ? 1 : amount);
+      setItemName('');
+      setItemAmount('');
+      handleClose();
+    } else {
+      console.error('Invalid input');
+    }
+  };
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -57,7 +68,7 @@ const AddItemModal = ({ open, handleClose, addItem }) => {
               },
             }}
           />
-            <TextField
+          <TextField
             variant="outlined"
             fullWidth
             label="Amount"
@@ -86,18 +97,8 @@ const AddItemModal = ({ open, handleClose, addItem }) => {
           />
           <Button
             variant="contained"
-            onClick={() => {
-              if(itemAmount===('')){
-                addItem(itemName, 1);
-                setItemName('');
-                handleClose();
-              }
-              else{
-                addItem(itemName, amount);
-                setItemName('');
-                handleClose();
-              }
-            }}>
+            onClick={handleAddItem}
+          >
             Add Item
           </Button>
         </Stack>

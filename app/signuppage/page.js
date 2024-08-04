@@ -2,11 +2,10 @@
 
 import React, { useState } from 'react';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { auth, firestore } from '@/firebase';
+import { auth } from '@/firebase';
 import { Container, CssBaseline, Avatar, Typography, TextField, Button, Grid, Link, Box, createTheme, ThemeProvider } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useRouter } from 'next/navigation';
-import { doc, setDoc } from 'firebase/firestore';
 
 const theme = createTheme({
   palette: {
@@ -32,7 +31,7 @@ function SignUpPage() {
       const res = await createUserWithEmailAndPassword(email, password);
       // const user = res.user;
 
-      // // Create a user-specific document in Firestore
+      // Create a user-specific document in Firestore
       // await setDoc(doc(firestore, 'users', user.uid), {
       //   email: user.email,
       //   createdAt: new Date(),

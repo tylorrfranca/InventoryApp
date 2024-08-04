@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`flex relative flex-col w-screen min-h-screen overflow-x-hidden`}>
-        <LoginHeader/>
+        <Header/>
         {children}
         <Footer />
       </body>

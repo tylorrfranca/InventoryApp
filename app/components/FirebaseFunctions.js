@@ -23,7 +23,7 @@ export const addItem = async (item, amount, updateInventory) => {
     const { quantity } = docSnap.data();
     await setDoc(docRef, { quantity: quantity + amount });
   } else {
-    await setDoc(docRef, { quantity: 0 });
+    await setDoc(docRef, { quantity: amount });
   }
   await updateInventory();
 };

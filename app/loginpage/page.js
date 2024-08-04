@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import {useSignInWithEmailAndPassword} from 'react-firebase-hooks/auth'
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '@/firebase';
 import {
   Container,
@@ -33,19 +33,23 @@ const theme = createTheme({
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
-  const router = useRouter()
-  const handleSubmit = async () => {
+  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+  const router = useRouter();
+
+  const handleSignIn = async (event) => {
+    event.preventDefault();
     try {
       const res = await signInWithEmailAndPassword(email, password);
-      console.log({res});
-
-      email('');
-      password('');
-      router.push('/')
-    }
-    catch(e){
-      console.error(e)
+      console.log({ res });
+      if (res) {
+        console.log("success");
+        setEmail('');
+        setPassword('');
+        router.push('/');
+      }
+    } catch (e) {
+      console.error(e);
+      console.log("fail");
     }
   };
 
@@ -60,7 +64,7 @@ function LoginPage() {
             flexDirection: 'column',
             alignItems: 'center',
           }}
-          height={'100vh'}
+          height={'80vh'}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
@@ -68,7 +72,7 @@ function LoginPage() {
           <Typography component="h1" variant="h5">
             Sign In
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Box component="form" sx={{ mt: 1 }} onSubmit={handleSignIn}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -101,6 +105,8 @@ function LoginPage() {
               variant="contained"
               color="primary"
               sx={{ mt: 3, mb: 2 }}
+              onClick={handleSignIn}
+              
             >
               Sign In
             </Button>
@@ -111,7 +117,7 @@ function LoginPage() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

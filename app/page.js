@@ -1,11 +1,27 @@
-import HomePage from "./homepage/HomePage"
+'use client'
+import { useAuthState } from 'react-firebase-hooks/auth';
+import FirstPage from './firstpage/page'
+import { auth } from '@/firebase';
+import HomePage from './homepage/page';
+import { signOut } from 'firebase/auth';
 
 
 export default function Index() {
+    const [user] = useAuthState(auth)
+    console.log({user})
 
-    return (
+    if(user){
+        return (
         <>
-            <HomePage />
+            <HomePage/>
         </>
-    );
+        );
+    }
+    else{
+        return (
+        <>
+            <FirstPage/>
+        </>
+        );  
+    }
 }

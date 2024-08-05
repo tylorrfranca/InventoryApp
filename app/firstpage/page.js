@@ -1,4 +1,4 @@
-
+'use client'
 
 import React from 'react';
 import { Container, CssBaseline, Box, Button, Typography, createTheme, ThemeProvider } from '@mui/material';

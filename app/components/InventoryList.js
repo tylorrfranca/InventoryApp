@@ -1,7 +1,7 @@
 import { Box, Button, Stack, Typography, TextField } from "@mui/material";
 import { useState } from "react";
 
-const InventoryList = ({ inventory, addItem, removeItem, deleteItem }) => {
+const InventoryList = ({ userId, inventory, addItem, removeItem, deleteItem }) => {
   const [amount, setAmount] = useState({});
 
   const handleAmountChange = (name, value) => {
@@ -29,7 +29,7 @@ const InventoryList = ({ inventory, addItem, removeItem, deleteItem }) => {
         boxShadow: 3,
       }}
     >
-      {inventory.map(({ name, quantity }) => (
+      {inventory.map(({name, quantity }) => (
         <Box
           key={name}
           width="100%"
@@ -52,7 +52,7 @@ const InventoryList = ({ inventory, addItem, removeItem, deleteItem }) => {
             <Button
               variant="contained"
               color="secondary"
-              onClick={() => deleteItem(name)}
+              onClick={() => deleteItem(name, userId)}
               sx={{ minWidth: '120px' }}
             >
               Remove Item
@@ -89,14 +89,14 @@ const InventoryList = ({ inventory, addItem, removeItem, deleteItem }) => {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => removeItem(name, getValidAmount(amount[name]))}
+                onClick={() => removeItem(name, getValidAmount(amount[name]), userId)}
               >
                 -
               </Button>
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => addItem(name, getValidAmount(amount[name]))}
+                onClick={() => addItem(name, getValidAmount(amount[name]), userId)}
               >
                 +
               </Button>

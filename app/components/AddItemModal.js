@@ -1,7 +1,7 @@
 import { Box, Button, Modal, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 
-const AddItemModal = ({ open, handleClose, addItem }) => {
+const AddItemModal = ({userId, open, handleClose, addItem }) => {
   const [itemName, setItemName] = useState('');
   const [itemAmount, setItemAmount] = useState('');
   const amount = parseInt(itemAmount, 10);
@@ -88,12 +88,12 @@ const AddItemModal = ({ open, handleClose, addItem }) => {
             variant="contained"
             onClick={() => {
               if(itemAmount===('')){
-                addItem(itemName, 1);
+                addItem(itemName, 1, userId);
                 setItemName('');
                 handleClose();
               }
               else{
-                addItem(itemName, amount);
+                addItem(itemName, amount, userId);
                 setItemName('');
                 handleClose();
               }

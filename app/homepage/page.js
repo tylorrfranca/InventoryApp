@@ -11,15 +11,16 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 const HomePage = () => {
   const [inventory, setInventory] = useState([]);
   const [open, setOpen] = useState(false);
+  const [user] = useAuthState(auth);
 
   useEffect(() => {
-    updateInventory(setInventory);
-  }, []);
+    if (user) {
+      updateInventory(user.uid, setInventory);
+    }
+  }, [user]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const [user] = useAuthState(auth);
   console.log({ user });
 
   return (
@@ -61,17 +62,19 @@ const HomePage = () => {
           boxShadow={3}
         >
           <InventoryList
+            userId={user?.uid}
             inventory={inventory}
-            addItem={(item, amount) => addItem(item, amount, () => updateInventory(setInventory))}
-            removeItem={(item, amount) => removeItem(item, amount, () => updateInventory(setInventory))}
-            deleteItem={(item) => deleteItem(item, () => updateInventory(setInventory))}
+            addItem={(item, amount) => addItem(item, amount, user.uid, () => updateInventory(user.uid, setInventory))}
+            removeItem={(item, amount) => removeItem(item, amount, user.uid, () => updateInventory(user.uid, setInventory))}
+            deleteItem={(item) => deleteItem(item, user.uid, () => updateInventory(user.uid, setInventory))}
           />
         </Box>
 
         <AddItemModal
+          userId={user?.uid}
           open={open}
           handleClose={handleClose}
-          addItem={(item, amount) => addItem(item, amount, () => updateInventory(setInventory))}
+          addItem={(item, amount) => addItem(item, amount, user.uid, () => updateInventory(user.uid, setInventory))}
         />
       </Container>
 

@@ -1,4 +1,4 @@
-'use client';
+
 
 import React from 'react';
 import { Container, CssBaseline, Box, Button, Typography, createTheme, ThemeProvider } from '@mui/material';
@@ -26,7 +26,7 @@ const theme = createTheme({
   },
 });
 
-function firstPage() {
+function FirstPage() {
   const router = useRouter();
 
   const handleLogin = () => {
@@ -85,4 +85,4 @@ function firstPage() {
   );
 }
 
-export default firstPage;
+export default FirstPage;

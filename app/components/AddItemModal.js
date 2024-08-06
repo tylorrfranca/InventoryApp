@@ -13,7 +13,12 @@ const AddItemModal = ({userId, open, handleClose, addItem }) => {
         position="absolute"
         top="50%"
         left="50%"
-        width={400}
+        width={{
+          xs:'300px',
+          sm:'300px',
+          md:'400px',
+          lg:'400px'
+        }}
         bgcolor="#1f1f1f"
         color="white"
         border="2px solid #333"

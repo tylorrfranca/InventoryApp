@@ -1,5 +1,5 @@
 'use client'
-import { Box, Typography, Link } from "@mui/material";
+import { Box, Typography, Link, useMediaQuery  } from "@mui/material";
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import {
@@ -12,6 +12,7 @@ let theme = createTheme();
 theme = responsiveFontSizes(theme); 
 
 const Footer = () => {
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <footer>
       <Box
@@ -32,6 +33,7 @@ const Footer = () => {
           md:'11vh',
           lg:'10vh'
         }}
+        gap={5}
       >
 
         <ThemeProvider theme={theme}>
@@ -58,14 +60,15 @@ const Footer = () => {
             </Link>
           </Typography>
           
-          <Typography
-            variant="h6"
-            fontWeight="bold"
-            fontFamily="Roboto, sans-serif"
-            textAlign={'center'}
-          >
-            Simple Inventory Tracking Application
-          </Typography>
+          {!isSmallScreen && (
+              <Typography
+                variant="h6"
+                fontWeight="bold"
+                fontFamily="Roboto, sans-serif"
+                textAlign={'center'}
+              >
+                Simple Inventory Tracking Application
+              </Typography>)}
         </ThemeProvider>
 
         <Box display="flex" flexDirection="row" gap={3}>

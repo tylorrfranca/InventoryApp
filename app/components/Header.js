@@ -1,14 +1,26 @@
+'use client'
 import { Box, Typography, Link } from "@mui/material";
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import {
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from '@mui/material/styles';
+
+
+let theme = createTheme();
+theme = responsiveFontSizes(theme); 
+
 
 const Header = () => {
+
   return (
     <header>
       <Box
         sx={{
           backgroundColor: '#1f1f1f',
-          width: '100%',
+          width: '100vw',
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
@@ -18,20 +30,28 @@ const Header = () => {
           boxShadow: 3,
           borderBottom: '2px solid #333',
         }}
-        height={"10vh"}
+        height={{
+          sm:'12vh',
+          md:'11vh',
+          lg:'10vh'
+        }}
       >
+        <ThemeProvider theme={theme}>
         <Typography
-          variant="h3"
+          variant="h4"
           fontFamily="Roboto, sans-serif"
           fontWeight="bold"
           sx={{
             color: '#90caf9',
           }}
         >
+          <Link href= '/'
+          underline='none'>
           Simple Inventory Tracking Application
+          </Link>
         </Typography>
-
-        <Box display="flex" flexDirection="row" gap={3}>
+        </ThemeProvider>
+        <Box display="flex" flexDirection="row" gap={3} marginX={3}>
           <Link href="https://github.com/tylorrfranca" target="_blank" rel="noopener" underline="none">
             <GitHubIcon
               fontSize="large"

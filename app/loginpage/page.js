@@ -65,12 +65,13 @@ function LoginPage() {
             alignItems: 'center',
           }}
           height={'80vh'}
+          paddingX={4}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign In
+            Log In
           </Typography>
           <Box component="form" sx={{ mt: 1 }} onSubmit={handleSignIn}>
             <TextField
@@ -108,20 +109,18 @@ function LoginPage() {
               onClick={handleSignIn}
               
             >
-              Sign In
+              Log In
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/" variant="body2">
+            <Box 
+            display={'flex'}
+            justifyContent={'center'}
+            alignItems={'center'}>
+              
+                <Link href="/signuppage" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
-              </Grid>
-            </Grid>
+          
+            </Box>
           </Box>
         </Box>
       </Container>

@@ -7,6 +7,14 @@ import { updateInventory, addItem, removeItem, deleteItem } from '../components/
 import { signOut } from 'firebase/auth';
 import { auth } from '@/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import {
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from '@mui/material/styles';
+
+let theme = createTheme();
+theme = responsiveFontSizes(theme); 
 
 const HomePage = () => {
   const [inventory, setInventory] = useState([]);
@@ -26,7 +34,7 @@ const HomePage = () => {
   return (
     <Box
       width="100vw"
-      height="80vh"
+      height="100vh"
       display="flex"
       flexDirection="column"
       justifyContent="center"
@@ -38,14 +46,21 @@ const HomePage = () => {
         <Box
           bgcolor="#1f1f1f"
           borderRadius={3}
-          p={3}
+          p={{
+            xs:2,
+            sm:3,
+            md:3,
+            lg:3
+          }}
           mb={4}
           boxShadow={3}
           textAlign="center"
         >
-          <Typography variant="h2" color="primary" fontFamily="Roboto, sans-serif">
-            Inventory Items
-          </Typography>
+          <ThemeProvider  theme={theme}>
+            <Typography variant="h2" color="primary" fontFamily="Roboto, sans-serif">
+              Inventory Items
+            </Typography>
+          </ThemeProvider>
         </Box>
 
         <Box display="flex" justifyContent="center" mb={3}>
@@ -60,6 +75,9 @@ const HomePage = () => {
           bgcolor="#1f1f1f"
           p={3}
           boxShadow={3}
+          height="60vh"
+          overflow="auto"
+          marginBottom={5}
         >
           <InventoryList
             userId={user?.uid}
@@ -79,11 +97,12 @@ const HomePage = () => {
       </Container>
 
       <Button
+
         variant="contained"
         sx={{
           position: 'absolute',
           bottom: 16,
-          right: 16,
+          right: 30,
           backgroundColor: 'red',
           '&:hover': {
             backgroundColor: 'darkred',
@@ -92,6 +111,8 @@ const HomePage = () => {
         onClick={() => {
           signOut(auth)
         }}
+        mariginRight={5}
+        
       >
         Log Out
       </Button>

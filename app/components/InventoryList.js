@@ -1,5 +1,15 @@
 import { Box, Button, Stack, Typography, TextField } from "@mui/material";
 import { useState } from "react";
+import {
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from '@mui/material/styles';
+
+
+let theme = createTheme();
+theme = responsiveFontSizes(theme);
+
 
 const InventoryList = ({ userId, inventory, addItem, removeItem, deleteItem }) => {
   const [amount, setAmount] = useState({});
@@ -18,8 +28,6 @@ const InventoryList = ({ userId, inventory, addItem, removeItem, deleteItem }) =
 
   return (
     <Stack
-      width="800px"
-      height="500px"
       spacing={2}
       overflow="auto"
       sx={{
@@ -28,12 +36,12 @@ const InventoryList = ({ userId, inventory, addItem, removeItem, deleteItem }) =
         padding: 2,
         boxShadow: 3,
       }}
+      alignItems={'center'}
+      
     >
       {inventory.map(({name, quantity }) => (
         <Box
           key={name}
-          width="100%"
-          minHeight="150px"
           display="flex"
           alignItems="center"
           justifyContent="space-between"
@@ -41,24 +49,70 @@ const InventoryList = ({ userId, inventory, addItem, removeItem, deleteItem }) =
           padding={3}
           borderRadius={2}
           boxShadow={2}
+          gap={2}
+
+          overflow="auto"
+          flexDirection={{
+            xs:'column',
+            sm:'column',
+            md:'row',
+            lg:'row'
+          }}
         >
-          <Typography variant="h5" color="white" fontFamily="Roboto, sans-serif">
-            {name.charAt(0).toUpperCase() + name.slice(1)}
-          </Typography>
-          <Box display="flex" alignItems="center" justifyContent="center" gap={2}>
-            <Typography variant="h5" color="white" fontFamily="Roboto, sans-serif">
-              {quantity}
-            </Typography>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => deleteItem(name, userId)}
-              sx={{ minWidth: '120px' }}
-            >
-              Remove Item
-            </Button>
-          </Box>
-          <Stack direction="row" spacing={2} alignItems="center">
+            
+            <Box display="flex"
+              flexDirection={{
+                xs:'column',
+                sm:'row',
+                md:'row',
+                lg:'row'
+              }}
+              gap={2}>
+
+
+              <Box
+              display="flex"
+              gap={2}
+              
+              alignItems={'center'}
+              >
+                <ThemeProvider theme={theme}>
+              
+                  <Typography variant="h5" color="white" fontFamily="Roboto, sans-serif">
+                    {name.charAt(0).toUpperCase() + name.slice(1)}
+                  </Typography>
+              
+                  <Box
+                  padding= {.5}
+                  border={'black 3px solid'}
+                  bgcolor={'white'}>
+                  <Typography variant="h5" color="black" fontFamily="Roboto, sans-serif">
+                      {quantity}
+                  </Typography>
+                  </Box>
+                </ThemeProvider>
+                </Box>
+              
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => deleteItem(name, userId)}
+                  sx={{ minWidth: '80px' }}
+                >
+                  Remove Item
+                </Button>
+            </Box>
+              
+      
+         
+          <Stack direction={{
+            xs:'column',
+            sm:'row',
+            md:'row',
+            lg:'row'
+          }} spacing={2} alignItems="center">
+
+
             <TextField
               variant="outlined"
               label="Amount"

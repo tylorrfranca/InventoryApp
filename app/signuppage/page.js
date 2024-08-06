@@ -58,6 +58,7 @@ function SignUpPage() {
             alignItems: 'center',
           }}
           height={'80vh'}
+          paddingX={4}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
@@ -107,7 +108,7 @@ function SignUpPage() {
             <Grid container justifyContent="center">
               <Grid item>
                 <Link href="/loginpage" variant="body2">
-                  Already have an account? Sign in
+                  Already have an account? Log In
                 </Link>
               </Grid>
             </Grid>

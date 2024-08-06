@@ -1,8 +1,16 @@
 'use client'
 
 import React from 'react';
-import { Container, CssBaseline, Box, Button, Typography, createTheme, ThemeProvider } from '@mui/material';
+import { Container, CssBaseline, Box, Button, Typography} from '@mui/material';
 import { useRouter } from 'next/navigation';
+import {
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from '@mui/material/styles';
+
+let theme2 = createTheme();
+theme2 = responsiveFontSizes(theme2); 
 
 const theme = createTheme({
   palette: {
@@ -49,27 +57,37 @@ function FirstPage() {
             
           }}
           height={'100vh'}
+          padding={3}
 
         >
 
           <Box
             sx={{
-            marginTop: 18,
+            marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            justifyContent:'start',
             backgroundColor: theme.palette.background.paper,
             padding: 4,
             borderRadius: 2,
+            textAlign:'center'
           }}
-          height={'60%'}
+          height={{
+            xs:'80%',
+            sm:'80%',
+            md:'70%',
+            lg:'50%'
+          }}
           >
-              <Typography component="h1" variant="h3" gutterBottom padding={8}>
-                Welcome to Inventory App
-              </Typography>
-              <Typography component="p" variant="h6" gutterBottom>
-                Manage your inventory efficiently and effectively.
-              </Typography>
+              <ThemeProvider theme={theme2}>
+                <Typography component="h1" variant="h3" gutterBottom padding={8}>
+                  Welcome to Inventory App
+                </Typography>
+                <Typography component="p" variant="h6" gutterBottom>
+                  Manage your inventory efficiently and effectively.
+                </Typography>
+              </ThemeProvider>
               <Box sx={{ mt: 4, display: 'flex', gap: 2 }}>
                 <Button variant="contained" color="primary" onClick={handleLogin}>
                   Login

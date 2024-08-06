@@ -1,6 +1,15 @@
+'use client'
 import { Box, Typography, Link } from "@mui/material";
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import {
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from '@mui/material/styles';
+
+let theme = createTheme();
+theme = responsiveFontSizes(theme); 
 
 const Footer = () => {
   return (
@@ -8,7 +17,7 @@ const Footer = () => {
       <Box
         sx={{
           backgroundColor: '#1f1f1f',
-          width: '100%',
+          width: '100vw',
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
@@ -18,37 +27,46 @@ const Footer = () => {
           boxShadow: 3,
           borderTop: '2px solid #333',
         }}
-        height={'10vh'}
+        height={{
+          sm:'12vh',
+          md:'11vh',
+          lg:'10vh'
+        }}
       >
-        <Typography
-          variant="h5"
-          fontWeight="bold"
-          fontFamily="Roboto, sans-serif"
-        >
-          Created by{' '}
-          <Link
-            href="https://tylorrfranca.github.io/PersonalSite/"
-            target="_blank"
-            rel="noopener"
-            color="inherit"
-            underline="hover"
-            sx={{
-              "&:hover": {
-                color: '#90caf9',
-              }
-            }}
-          >
-            Tylor França
-          </Link>
-        </Typography>
 
-        <Typography
-          variant="h5"
-          fontWeight="bold"
-          fontFamily="Roboto, sans-serif"
-        >
-          Simple Inventory Tracking Application
-        </Typography>
+        <ThemeProvider theme={theme}>
+          <Typography
+            variant="h6"
+            fontWeight="bold"
+            fontFamily="Roboto, sans-serif"
+            textAlign={'center'}
+          >
+            Created by{' '}
+            <Link
+              href="https://tylorrfranca.github.io/PersonalSite/"
+              target="_blank"
+              rel="noopener"
+              color="inherit"
+              underline="hover"
+              sx={{
+                "&:hover": {
+                  color: '#90caf9',
+                }
+              }}
+            >
+              Tylor França
+            </Link>
+          </Typography>
+          
+          <Typography
+            variant="h6"
+            fontWeight="bold"
+            fontFamily="Roboto, sans-serif"
+            textAlign={'center'}
+          >
+            Simple Inventory Tracking Application
+          </Typography>
+        </ThemeProvider>
 
         <Box display="flex" flexDirection="row" gap={3}>
           <Link href="https://github.com/tylorrfranca" target="_blank" rel="noopener" underline="none">

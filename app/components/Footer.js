@@ -45,7 +45,7 @@ const Footer = () => {
           >
             Created by{' '}
             <Link
-              href="https://tylorrfranca.github.io/PersonalSite/"
+              href="https://tylorfranca.dev"
               target="_blank"
               rel="noopener"
               color="inherit"
